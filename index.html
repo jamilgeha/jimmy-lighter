@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jimmy!lighter - Type-C Edition</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --border-color: #262626;
+            --text-main: #ffffff;
+            --text-sub: #a1a1aa;
+            --accent-orange: #ff5500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 60px;
+        }
+
+        /* Navigation */
+        nav {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        nav .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        /* Hero Image Gallery Showcase */
+        .hero-gallery {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .gallery-img.active {
+            display: block;
+        }
+
+        /* Gallery Thumbnails */
+        .thumbs-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        .thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+
+        .thumb.active {
+            border-color: var(--accent-orange);
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background-color: #262626;
+            color: var(--accent-orange);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        /* Headings & Text */
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        p.description {
+            color: var(--text-sub);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Calculator Card */
+        .calc-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+
+        .price-title {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+
+        .price-val {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .price-val span {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            font-weight: 400;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: #0d0d0d;
+            border: 1px solid var(--border-color);
+            width: fit-content;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .quantity-control button {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .calc-note {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        /* Features Section */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .section-sub {
+            color: var(--text-sub);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* Footer & Contact Section */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        footer .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+
+        .contact-item a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-orange);
+        }
+
+        footer .copyright {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">jimmy!lighter</div>
+        <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#why">Why Jimmy</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Image Gallery -->
+        <div class="hero-gallery">
+            <img id="img1" class="gallery-img active" src="IMG_6753.jpeg" alt="Jimmy! Lighter Products">
+            <img id="img2" class="gallery-img" src="IMG_6766.jpeg" alt="Jimmy! Lighter Packaging Bag">
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="thumbs-container">
+            <div class="thumb active" onclick="switchImage(1)">
+                <img src="IMG_6753.jpeg" alt="Product View">
+            </div>
+            <div class="thumb" onclick="switchImage(2)">
+                <img src="IMG_6766.jpeg" alt="Plastic Bag Packaging">
+            </div>
+        </div>
+
+        <!-- Product Description -->
+        <span class="badge">New — Type-C Edition</span>
+        <h1>The lighter that lives in your phone.</h1>
+        <p class="description">
+            Jimmy! Lighter Type-C is a portable, windproof phone lighter that plugs right into your USB-C port. Comes neatly sealed in a protective clear zip-bag.
+        </p>
+
+        <!-- Dynamic Calculator -->
+        <div class="calc-card">
+            <div class="price-title">Price calculator</div>
+            <div class="price-val">€<span id="total-price">6.99</span> <span>for <span id="item-count">1</span> piece</span></div>
+            
+            <div class="quantity-control">
+                <button onclick="updateQuantity(-1)">−</button>
+                <span id="qty">1</span>
+                <button onclick="updateQuantity(1)">+</button>
+            </div>
+
+            <p class="calc-note">€6.99 per piece. This is just a calculator — you can't buy here.</p>
+        </div>
+
+        <!-- Features Section -->
+        <h2 class="section-title" id="features">Safe, compact, and always ready.</h2>
+        <p class="section-sub">We reimagined the lighter for the phone-in-your-pocket era. No fuel, no flame, no fuss.</p>
+
+        <div class="feature-card">
+            <h3>📦 Protective Zipper Packaging</h3>
+            <p>Every Jimmy! Lighter comes packaged in a clean, durable plastic zip pouch to keep it clean, dry, and ready to use.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>📱 Phone Powered</h3>
+            <p>Plugs straight into your USB-C phone. No charging case, no spare batteries, no lighter fluid refills.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🔥 Take It Anywhere</h3>
+            <p>Tiny enough for your pocket or keychain. Take it camping, to a BBQ, on a night out — anywhere you go.</p>
+
+        </div>
+
+        <div class="feature-card">
+            <h3>💨 Windproof Heat</h3>
+            <p>An electric coil glows hot in seconds and stays lit even in strong wind — campfires, candles, grills.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🛡️ Pocket-Safe</h3>
+            <p>The coil is sealed under a cap and only activates when plugged in and the button is held. Auto shutoff for safety.</p>
+        </div>
+    </div>
+
+    <!-- Footer & Contact Section -->
+    <footer id="contact">
+        <div class="logo">jimmy!lighter</div>
+        
+        <div class="contact-section">
+            <div class="contact-item">
+                📧 Email: <a href="mailto:gehajimmy@yahoo.com">gehajimmy@yahoo.com</a>
+            </div>
+            <div class="contact-item">
+                📷 Instagram: <a href="https://instagram.com/jimmy.lighter" target="_blank" rel="noopener noreferrer">@jimmy.lighter</a>
+            </div>
+        </div>
+
+        <p class="copyright">© 2026 Jimmy Lighter. All rights reserved.</p>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        /* Quantity Calculator */
+        let quantity = 1;
+        const unitPrice = 6.99;
+
+        function updateQuantity(change) {
+            quantity += change;
+            if (quantity < 1) quantity = 1;
+
+            document.getElementById('qty').innerText = quantity;
+            document.getElementById('item-count').innerText = quantity;
+            document.getElementById('total-price').innerText = (quantity * unitPrice).toFixed(2);
+        }
+
+        /* Image Gallery Switcher */
+        function switchImage(index) {
+            const imgs = document.querySelectorAll('.gallery-img');
+            const thumbs = document.querySelectorAll('.thumb');
+
+            imgs.forEach(img => img.classList.remove('active'));
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+
+            document.getElementById('img' + index).classList.add('active');
+            thumbs[index - 1].classList.add('active');
+        }
+    </script>
+</body>
+</html>
